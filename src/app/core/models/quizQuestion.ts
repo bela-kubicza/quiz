@@ -1,5 +1,5 @@
 export interface QuizQuestion {
   question: string;
-  options: [string];
+  options: string[];
   answer: string;
 }
