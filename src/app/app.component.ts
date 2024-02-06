@@ -10,11 +10,4 @@ import { Observable } from 'rxjs';
 })
 export class AppComponent {
   public title: string = 'bk-quiz';
-  public quizzes: Observable<Quiz[]> | null = null;
-
-  constructor(
-    private apiService: ApiService
-  ) {
-    this.quizzes = this.apiService.getQuizzes();
-  }
 }
