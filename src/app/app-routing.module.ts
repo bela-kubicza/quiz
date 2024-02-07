@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/quiz-selector/quiz-selector.module').then(m => m.QuizSelectorModule)
+    loadChildren: () => import('./modules/quiz-selector/quiz.module').then(m => m.QuizModule)
   }
 ];
 

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QuizSelectorComponent } from './components/quiz-selector/quiz-selector.component';
+import { QuizComponent } from './components/quiz-selector/quiz.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: QuizSelectorComponent
+    component: QuizComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class QuizSelectorRoutingModule { }
+export class QuizRoutingModule { }
