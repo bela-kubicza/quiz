@@ -1,0 +1,13 @@
+@import "../assets/styles";
+
+:host {
+  display: block;
+  background: url("/assets/images/pattern-background-desktop-light.svg") no-repeat center center, $gray-1;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  padding: 15% 10%;
+  overflow: hidden;
+  position: fixed;
+  box-sizing: border-box;
+}
