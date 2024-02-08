@@ -1,30 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Quiz } from '../../../../core/models/quiz';
-import { ApiService } from '../../../../core/services/api.service';
 import { NOT_SELECTED, State } from './quiz.constants';
 
 @Component({
-  selector: 'app-quiz-selector',
+  selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit {
-  public optionsToDisplay: string[] = [];
+  @Input('quizzes') quizzes: Quiz[] = [];
 
-  private quizzes: Quiz[] = [];
-  private state: State = State.QUIZ_TOPIC_SELECTOR;
+  public optionsToDisplay: string[] = [];
+  public state: State = State.QUIZ_TOPIC_SELECTOR;
+
+  protected readonly State = State;
+
   private selectedQuizIndex: number = NOT_SELECTED;
   private currentQuestionIndex: number = NOT_SELECTED;
-  private selectedOptionIndex: number = NOT_SELECTED
+  private selectedOptionIndex: number = NOT_SELECTED;
   private rightAnswerCount: number = 0;
 
-  constructor(
-    private apiService: ApiService
-  ) {
-  }
-
   public ngOnInit(): void {
-    this.loadQuizzes();
+    this.optionsToDisplay = this.quizzes.map((quiz: Quiz): string => quiz.title);
   }
 
   public onSelect(index: number): void {
@@ -36,15 +33,5 @@ export class QuizComponent implements OnInit {
     } else {
       this.selectedOptionIndex = index;
     }
-  }
-
-
-
-  private loadQuizzes() {
-    this.apiService.getQuizzes()
-      .subscribe((allQuizzes: Quiz[]) => {
-        this.quizzes = allQuizzes;
-        this.optionsToDisplay = allQuizzes.map((quiz: Quiz) => quiz.title);
-      });
   }
 }

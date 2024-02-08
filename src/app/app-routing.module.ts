@@ -4,12 +4,20 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./modules/quiz-selector/quiz.module').then(m => m.QuizModule)
+    loadChildren: () => import('./modules/quiz/quiz.module').then(m => m.QuizModule)
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(
+      routes,
+      {
+        bindToComponentInputs: true
+      })
+
+  ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

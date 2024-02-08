@@ -1,0 +1,32 @@
+<div class="main-text-container">
+  <ng-container [ngSwitch]="state">
+    <ng-container *ngSwitchCase="State.QUIZ_TOPIC_SELECTOR">
+      <p>
+        <span>Welcome to the</span><br/>
+        <span>Frontend Quiz!</span>
+      </p>
+      <p>Pick a subject to get started.</p>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="State.QUIZ">
+      <p>
+        <span>Welcome to the</span><br/>
+        <span>Frontend Quiz!</span>
+      </p>
+      <p>Pick a subject to get started.</p>
+    </ng-container>
+  </ng-container>
+</div>
+
+<div class="main-interaction-container">
+  <ng-container [ngSwitch]="true">
+    <ng-container *ngSwitchCase="state === State.QUIZ_TOPIC_SELECTOR || State.QUIZ">
+      <button
+        *ngFor="let option of optionsToDisplay; index as i"
+        (click)="onSelect(i)"
+      >
+        {{option}}
+      </button>
+    </ng-container>
+  </ng-container>
+</div>
