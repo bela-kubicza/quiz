@@ -1,37 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Quiz } from '../../../../core/models/quiz';
 import { NOT_SELECTED, State } from './quiz.constants';
+import { QuizQuestion } from '../../../../core/models/quizQuestion';
 
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss']
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent {
   @Input('quizzes') quizzes: Quiz[] = [];
 
-  public optionsToDisplay: string[] = [];
+  public readonly State = State;
   public state: State = State.QUIZ_TOPIC_SELECTOR;
+  public selectedQuizIndex: number = NOT_SELECTED;
+  public currentQuestionIndex: number = NOT_SELECTED;
+  public rightAnswerIndex: number = NOT_SELECTED;
+  public selectedOptionIndex: number = NOT_SELECTED;
 
-  protected readonly State = State;
-
-  private selectedQuizIndex: number = NOT_SELECTED;
-  private currentQuestionIndex: number = NOT_SELECTED;
-  private selectedOptionIndex: number = NOT_SELECTED;
   private rightAnswerCount: number = 0;
 
-  public ngOnInit(): void {
-    this.optionsToDisplay = this.quizzes.map((quiz: Quiz): string => quiz.title);
+  public onQuizTopicSelect(index: number): void {
+    this.selectedQuizIndex = index;
+    this.currentQuestionIndex = 0;
+    this.state = State.QUIZ;
   }
 
-  public onSelect(index: number): void {
-    if (this.selectedQuizIndex === NOT_SELECTED) {
-      this.selectedQuizIndex = index;
-      this.currentQuestionIndex = 0;
-      this.optionsToDisplay = this.quizzes[this.selectedQuizIndex].questions[this.currentQuestionIndex].options;
-      this.state = State.QUIZ;
-    } else {
-      this.selectedOptionIndex = index;
-    }
+  public onAnswerSelect(index: number): void {
+    this.selectedOptionIndex = index;
+  }
+
+  public onAnswerSubmit(): void {
+    this.revealRightAnswer();
+  }
+
+  public revealRightAnswer() {
+    const currentQuestion: QuizQuestion = this.quizzes[this.selectedQuizIndex].questions[this.currentQuestionIndex];
+
+    this.rightAnswerIndex = currentQuestion.options.indexOf(currentQuestion.answer);
   }
 }

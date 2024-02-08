@@ -20,12 +20,30 @@
 
 <div class="main-interaction-container">
   <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="state === State.QUIZ_TOPIC_SELECTOR || State.QUIZ">
+    <ng-container *ngSwitchCase="state === State.QUIZ_TOPIC_SELECTOR">
       <button
-        *ngFor="let option of optionsToDisplay; index as i"
-        (click)="onSelect(i)"
+        class="topic-option"
+        *ngFor="let quiz of quizzes; index as i"
+        (click)="onQuizTopicSelect(i)"
+      >
+        {{quiz.title}}
+      </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="state === State.QUIZ">
+      <button
+        class="answer-option"
+        [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightAnswerIndex === i}"
+        *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
+        (click)="onAnswerSelect(i)"
       >
         {{option}}
+      </button>
+
+      <button
+        class="submit-button"
+        (click)="onAnswerSubmit()">
+        Submit Answer
       </button>
     </ng-container>
   </ng-container>
