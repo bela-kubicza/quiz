@@ -10,12 +10,9 @@
     </ng-container>
 
     <ng-container *ngSwitchCase="State.QUIZ">
-      <p>
-        <span>Welcome to the</span><br/>
-        <span>Frontend Quiz!</span>
-      </p>
+      <p class="question-counter">Question {{currentQuestionIndex + 1}} of {{quizzes[selectedQuizIndex].questions.length}}</p>
 
-      <p>Pick a subject to get started.</p>
+      <p class="heading-medium">{{quizzes[selectedQuizIndex].questions[currentQuestionIndex].question}}</p>
     </ng-container>
   </ng-container>
 </div>
@@ -35,7 +32,7 @@
     <ng-container *ngSwitchCase="state === State.QUIZ">
       <button
         class="answer-option"
-        [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightAnswerIndex === i}"
+        [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
         *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
         (click)="onAnswerSelect(i)"
       >
@@ -44,7 +41,7 @@
 
       <button
         class="submit-button"
-        [ngClass]="{'disabled': rightAnswerIndex >= 0}"
+        [ngClass]="{'disabled': rightOptionIndex >= 0}"
         (click)="onAnswerSubmit()"
       >
         Submit Answer

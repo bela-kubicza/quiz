@@ -15,7 +15,7 @@ export class QuizComponent {
   public state: State = State.QUIZ_TOPIC_SELECTOR;
   public selectedQuizIndex: number = NOT_SELECTED;
   public currentQuestionIndex: number = NOT_SELECTED;
-  public rightAnswerIndex: number = NOT_SELECTED;
+  public rightOptionIndex: number = NOT_SELECTED;
   public selectedOptionIndex: number = NOT_SELECTED;
 
   private rightAnswerCount: number = 0;
@@ -31,12 +31,21 @@ export class QuizComponent {
   }
 
   public onAnswerSubmit(): void {
-    this.revealRightAnswer();
+    this.rightOptionIndex = this.getRightOption();
+
+    if (this.rightOptionIndex === this.selectedOptionIndex) {
+      this.rightAnswerCount += 1;
+    }
+
+    setTimeout(()=> {
+      this.rightOptionIndex = NOT_SELECTED;
+      this.currentQuestionIndex += 1;
+    }, 2000);
   }
 
-  public revealRightAnswer() {
+  public getRightOption(): number {
     const currentQuestion: QuizQuestion = this.quizzes[this.selectedQuizIndex].questions[this.currentQuestionIndex];
 
-    this.rightAnswerIndex = currentQuestion.options.indexOf(currentQuestion.answer);
+    return currentQuestion.options.indexOf(currentQuestion.answer);
   }
 }
