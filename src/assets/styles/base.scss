@@ -1,0 +1,45 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: RubikRegular;
+  font-size: 12px;
+  line-height: 150%;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.big-display {
+  font-family: RubikMedium;
+  font-size: 144px;
+  line-height: 100%;
+}
+
+.heading-large-bold {
+  font-family: RubikMedium;
+  font-size: 64px;
+  line-height: 100%;
+}
+
+.heading-large-regular {
+  font-family: RubikRegular;
+  font-size: 64px;
+  line-height: 100%;
+}
+
+.heading-medium {
+  font-family: RubikMedium;
+  font-size: 36px;
+  line-height: 100%;
+}
+
+.heading-small {
+  font-family: RubikMedium;
+  font-size: 28px;
+  line-height: 100%;
+}

@@ -2,10 +2,11 @@
   <ng-container [ngSwitch]="state">
     <ng-container *ngSwitchCase="State.QUIZ_TOPIC_SELECTOR">
       <p>
-        <span>Welcome to the</span><br/>
-        <span>Frontend Quiz!</span>
+        <span class="heading-large-regular">Welcome to the</span><br/>
+        <span class="heading-large-bold">Frontend Quiz!</span>
       </p>
-      <p>Pick a subject to get started.</p>
+
+      <p class="quiz-topic-desc">Pick a subject to get started.</p>
     </ng-container>
 
     <ng-container *ngSwitchCase="State.QUIZ">
@@ -13,6 +14,7 @@
         <span>Welcome to the</span><br/>
         <span>Frontend Quiz!</span>
       </p>
+
       <p>Pick a subject to get started.</p>
     </ng-container>
   </ng-container>
@@ -42,7 +44,9 @@
 
       <button
         class="submit-button"
-        (click)="onAnswerSubmit()">
+        [ngClass]="{'disabled': rightAnswerIndex >= 0}"
+        (click)="onAnswerSubmit()"
+      >
         Submit Answer
       </button>
     </ng-container>
