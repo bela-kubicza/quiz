@@ -14,6 +14,13 @@
 
       <p class="heading-medium">{{quizzes[selectedQuizIndex].questions[currentQuestionIndex].question}}</p>
     </ng-container>
+
+    <ng-container *ngSwitchCase="State.QUIZ_RESULT">
+      <p>
+        <span class="heading-large-regular">Quiz completed</span><br/>
+        <span class="heading-large-bold">You scored...</span>
+      </p>
+    </ng-container>
   </ng-container>
 </div>
 
@@ -45,6 +52,17 @@
         (click)="onAnswerSubmit()"
       >
         Submit Answer
+      </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="state === State.QUIZ_RESULT">
+      <p>{{rightAnswerCount}} out of {{quizzes[selectedQuizIndex].questions.length}}</p>
+
+      <button
+        class="submit-button"
+        (click)="reset()"
+      >
+        Play Again
       </button>
     </ng-container>
   </ng-container>
