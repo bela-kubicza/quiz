@@ -1,3 +1,5 @@
+@import "../../assets/styles";
+
 :host {
   display: flex;
   height: 100%;
@@ -17,4 +19,65 @@
 .question-counter {
   margin-bottom: 20px;
   font-family: RubikItalic;
+}
+
+.topic-option,
+.answer-option,
+.action-button {
+  @extend .heading-small;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 0;
+  border-radius: 20px;
+  padding: 18px 20px;
+  width: 100%;
+  text-align: start;
+  margin-bottom: 25px;
+  box-shadow: 0px 16px 40px rgba(143, 160, 193, 0.2);
+  cursor: pointer;
+  box-sizing: content-box;
+}
+
+.topic-option,
+.answer-option {
+  background-color: $white;
+}
+
+.topic-option {
+  &:nth-child(1) {
+    .topic-icon-holder {
+      background-color: $orange-transparent;
+    }
+  }
+
+  &:nth-child(2) {
+    .topic-icon-holder {
+      background-color: $green-transparent;
+    }
+  }
+
+  &:nth-child(3) {
+    .topic-icon-holder {
+      background-color: $blue-transparent;
+    }
+  }
+
+  &:nth-child(4) {
+    .topic-icon-holder {
+      background-color: $purple-transparent;
+    }
+  }
+}
+
+.topic-icon-holder {
+  background-color: rgba(47, 216, 135, 0.4);
+  border-radius: 8px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: block;
+  width: 56px;
+  height: 56px;
+  margin-right: 30px;
 }

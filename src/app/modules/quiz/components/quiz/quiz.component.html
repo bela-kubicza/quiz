@@ -24,8 +24,11 @@
     <button
       class="topic-option"
       *ngFor="let quiz of quizzes; index as i"
-      (click)="onQuizTopicSelect(i)"
-    >
+      (click)="onQuizTopicSelect(i)">
+      <span
+        class="topic-icon-holder"
+        [ngStyle]="{'background-image': 'url(' + quiz.icon + ')'}">
+      </span>
       {{quiz.title}}
     </button>
   </div>
@@ -50,7 +53,7 @@
     </button>
 
     <button
-      class="submit-button"
+      class="action-button"
       [ngClass]="{'disabled': rightOptionIndex >= 0}"
       (click)="onAnswerSubmit()"
     >
@@ -71,7 +74,7 @@
     <p>{{rightAnswerCount}} out of {{quizzes[selectedQuizIndex].questions.length}}</p>
 
     <button
-      class="submit-button"
+      class="action-button"
       (click)="reset()"
     >
       Play Again
