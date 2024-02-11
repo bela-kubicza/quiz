@@ -1,69 +1,80 @@
-<div class="main-text-container">
-  <ng-container [ngSwitch]="state">
-    <ng-container *ngSwitchCase="State.QUIZ_TOPIC_SELECTOR">
-      <p>
-        <span class="heading-large-regular">Welcome to the</span><br/>
-        <span class="heading-large-bold">Frontend Quiz!</span>
-      </p>
+<ng-container [ngSwitch]="state">
+  <ng-template [ngSwitchCase]="State.QUIZ_TOPIC_SELECTOR">
+    <ng-container *ngTemplateOutlet="quizTopicSelector"></ng-container>
+  </ng-template>
+  <ng-template [ngSwitchCase]="State.QUIZ">
+    <ng-container *ngTemplateOutlet="quiz"></ng-container>
+  </ng-template>
+  <ng-template [ngSwitchCase]="State.QUIZ_RESULT">
+    <ng-container *ngTemplateOutlet="quizResult"></ng-container>
+  </ng-template>
+</ng-container>
 
-      <p class="quiz-topic-desc">Pick a subject to get started.</p>
-    </ng-container>
+<ng-template #quizTopicSelector>
+  <div class="main-text-container">
+    <p>
+      <span class="heading-large-regular">Welcome to the</span><br/>
+      <span class="heading-large-bold">Frontend Quiz!</span>
+    </p>
 
-    <ng-container *ngSwitchCase="State.QUIZ">
-      <p class="question-counter">Question {{currentQuestionIndex + 1}} of {{quizzes[selectedQuizIndex].questions.length}}</p>
+    <p class="quiz-topic-desc">Pick a subject to get started.</p>
+  </div>
 
-      <p class="heading-medium">{{quizzes[selectedQuizIndex].questions[currentQuestionIndex].question}}</p>
-    </ng-container>
+  <div class="main-interaction-container">
+    <button
+      class="topic-option"
+      *ngFor="let quiz of quizzes; index as i"
+      (click)="onQuizTopicSelect(i)"
+    >
+      {{quiz.title}}
+    </button>
+  </div>
+</ng-template>
 
-    <ng-container *ngSwitchCase="State.QUIZ_RESULT">
-      <p>
-        <span class="heading-large-regular">Quiz completed</span><br/>
-        <span class="heading-large-bold">You scored...</span>
-      </p>
-    </ng-container>
-  </ng-container>
-</div>
+<ng-template #quiz>
+  <div class="main-text-container">
+    <p class="question-counter">Question {{currentQuestionIndex + 1}}
+      of {{quizzes[selectedQuizIndex].questions.length}}</p>
 
-<div class="main-interaction-container">
-  <ng-container [ngSwitch]="true">
-    <ng-container *ngSwitchCase="state === State.QUIZ_TOPIC_SELECTOR">
-      <button
-        class="topic-option"
-        *ngFor="let quiz of quizzes; index as i"
-        (click)="onQuizTopicSelect(i)"
-      >
-        {{quiz.title}}
-      </button>
-    </ng-container>
+    <p class="heading-medium">{{quizzes[selectedQuizIndex].questions[currentQuestionIndex].question}}</p>
+  </div>
 
-    <ng-container *ngSwitchCase="state === State.QUIZ">
-      <button
-        class="answer-option"
-        [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
-        *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
-        (click)="onAnswerSelect(i)"
-      >
-        {{option}}
-      </button>
+  <div class="main-interaction-container">
+    <button
+      class="answer-option"
+      [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
+      *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
+      (click)="onAnswerSelect(i)"
+    >
+      {{option}}
+    </button>
 
-      <button
-        class="submit-button"
-        [ngClass]="{'disabled': rightOptionIndex >= 0}"
-        (click)="onAnswerSubmit()"
-      >
-        Submit Answer
-      </button>
-    </ng-container>
+    <button
+      class="submit-button"
+      [ngClass]="{'disabled': rightOptionIndex >= 0}"
+      (click)="onAnswerSubmit()"
+    >
+      Submit Answer
+    </button>
+  </div>
+</ng-template>
 
-    <ng-container *ngSwitchCase="state === State.QUIZ_RESULT">
-      <p>{{rightAnswerCount}} out of {{quizzes[selectedQuizIndex].questions.length}}</p>
+<ng-template #quizResult>
+  <div class="main-text-container">
+    <p>
+      <span class="heading-large-regular">Quiz completed</span><br/>
+      <span class="heading-large-bold">You scored...</span>
+    </p>
+  </div>
 
-      <button
-        class="submit-button"
-        (click)="reset()"
-      >
-        Play Again
-      </button>
-    </ng-container>
-  </ng-container>
-</div>
+  <div class="main-interaction-container">
+    <p>{{rightAnswerCount}} out of {{quizzes[selectedQuizIndex].questions.length}}</p>
+
+    <button
+      class="submit-button"
+      (click)="reset()"
+    >
+      Play Again
+    </button>
+  </div>
+</ng-template>
