@@ -12,13 +12,13 @@
 }
 
 .quiz-topic-desc {
-  margin-top: 50px;
   font-family: RubikItalic;
+  margin-top: 50px;
 }
 
 .question-counter {
-  margin-bottom: 20px;
   font-family: RubikItalic;
+  margin-bottom: 20px;
 }
 
 .topic-option,
@@ -26,18 +26,18 @@
 .action-button {
   @extend .heading-small;
 
-  display: flex;
-  flex-direction: row;
   align-items: center;
   border: 0;
   border-radius: 20px;
-  padding: 18px 20px;
-  width: 100%;
-  text-align: start;
-  margin-bottom: 25px;
   box-shadow: 0px 16px 40px rgba(143, 160, 193, 0.2);
-  cursor: pointer;
   box-sizing: content-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 25px;
+  padding: 18px 20px;
+  text-align: start;
+  width: 100%;
 }
 
 .topic-option,
@@ -46,38 +46,93 @@
 }
 
 .topic-option {
-  &:nth-child(1) {
-    .topic-icon-holder {
-      background-color: $orange-transparent;
-    }
+  &:nth-child(1) .topic-icon-holder {
+    background-color: $orange-transparent;
   }
 
-  &:nth-child(2) {
-    .topic-icon-holder {
-      background-color: $green-transparent;
-    }
+  &:nth-child(2) .topic-icon-holder {
+    background-color: $green-transparent;
   }
 
-  &:nth-child(3) {
-    .topic-icon-holder {
-      background-color: $blue-transparent;
-    }
+  &:nth-child(3) .topic-icon-holder {
+    background-color: $blue-transparent;
   }
 
-  &:nth-child(4) {
-    .topic-icon-holder {
-      background-color: $purple-transparent;
-    }
+  &:nth-child(4) .topic-icon-holder {
+    background-color: $purple-transparent;
   }
 }
 
-.topic-icon-holder {
-  background-color: rgba(47, 216, 135, 0.4);
-  border-radius: 8px;
+.question-text {
+  width: 80%;
+}
+
+.decision-icon {
+  background: url("/assets/images/icon-correct.svg") center center no-repeat;
+  display: block;
+  height: 40px;
+  width: 40px;
+}
+
+.answer-option {
+  border: 3px solid $white;
+
+  .question-letter-holder {
+    align-items: center;
+    background-color: $gray-1;
+    color: $gray-3;
+    display: flex;
+    justify-content: center;
+  }
+
+  &:hover {
+    .question-letter-holder {
+      background-color: $purple-transparent;
+      color: $purple;
+    }
+  }
+
+  &.selected-answer-option {
+    border-color: $purple;
+
+    .question-letter-holder {
+      background-color: $purple;
+      color: $white;
+    }
+
+    &.right-answer {
+      border-color: $green;
+
+      .question-letter-holder {
+        background-color: $green;
+      }
+    }
+  }
+
+  &:nth-child(1) .question-letter-holder:before {
+    content: 'A';
+  }
+
+  &:nth-child(2) .question-letter-holder:before {
+    content: 'B';
+  }
+
+  &:nth-child(3) .question-letter-holder:before {
+    content: 'C';
+  }
+
+  &:nth-child(4) .question-letter-holder:before {
+    content: 'D';
+  }
+}
+
+.topic-icon-holder,
+.question-letter-holder {
   background-position: center center;
   background-repeat: no-repeat;
+  border-radius: 8px;
   display: block;
-  width: 56px;
   height: 56px;
   margin-right: 30px;
+  width: 56px;
 }

@@ -37,14 +37,14 @@ export class QuizComponent {
       this.rightAnswerCount += 1;
     }
 
-    if(this.currentQuestionIndex < this.quizzes[this.selectedQuizIndex].questions.length - 1) {
+    /*if(this.currentQuestionIndex < this.quizzes[this.selectedQuizIndex].questions.length - 1) {
       setTimeout(()=> {
         this.rightOptionIndex = NOT_SELECTED;
         this.currentQuestionIndex += 1;
       }, 2000);
     } else {
       this.state = State.QUIZ_RESULT
-    }
+    }*/
   }
 
   public getRightOptionIndex(): number {

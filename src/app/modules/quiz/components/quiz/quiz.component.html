@@ -22,14 +22,11 @@
 
   <div class="main-interaction-container">
     <button
-      class="topic-option"
+      (click)="onQuizTopicSelect(i)"
       *ngFor="let quiz of quizzes; index as i"
-      (click)="onQuizTopicSelect(i)">
-      <span
-        class="topic-icon-holder"
-        [ngStyle]="{'background-image': 'url(' + quiz.icon + ')'}">
-      </span>
-      {{quiz.title}}
+      class="topic-option">
+      <span [ngStyle]="{'background-image': 'url(' + quiz.icon + ')'}" class="topic-icon-holder"></span>
+      <span>{{quiz.title}}</span>
     </button>
   </div>
 </ng-template>
@@ -44,19 +41,19 @@
 
   <div class="main-interaction-container">
     <button
-      class="answer-option"
-      [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
-      *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
       (click)="onAnswerSelect(i)"
-    >
-      {{option}}
+      *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
+      [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
+      class="answer-option">
+      <span class="question-letter-holder"></span>
+      <span class="question-text">{{option}}</span>
+      <span class="decision-icon"></span>
     </button>
 
     <button
-      class="action-button"
-      [ngClass]="{'disabled': rightOptionIndex >= 0}"
       (click)="onAnswerSubmit()"
-    >
+      [ngClass]="{'disabled': rightOptionIndex >= 0}"
+      class="action-button">
       Submit Answer
     </button>
   </div>
@@ -74,9 +71,8 @@
     <p>{{rightAnswerCount}} out of {{quizzes[selectedQuizIndex].questions.length}}</p>
 
     <button
-      class="action-button"
       (click)="reset()"
-    >
+      class="action-button">
       Play Again
     </button>
   </div>
