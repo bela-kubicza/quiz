@@ -19,6 +19,7 @@ export class QuizComponent {
   public rightOptionIndex: number = NOT_SELECTED;
   public selectedOptionIndex: number = NOT_SELECTED;
   public rightAnswerCount: number = 0;
+  public isSubmitted: boolean = false;
 
   public onQuizTopicSelect(index: number): void {
     this.selectedQuizIndex = index;
@@ -36,6 +37,8 @@ export class QuizComponent {
     if (this.rightOptionIndex === this.selectedOptionIndex) {
       this.rightAnswerCount += 1;
     }
+
+    this.isSubmitted = true;
 
     /*if(this.currentQuestionIndex < this.quizzes[this.selectedQuizIndex].questions.length - 1) {
       setTimeout(()=> {

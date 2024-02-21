@@ -43,7 +43,7 @@
     <button
       (click)="onAnswerSelect(i)"
       *ngFor="let option of quizzes[selectedQuizIndex].questions[currentQuestionIndex].options; index as i"
-      [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': rightOptionIndex === i}"
+      [ngClass]="{'selected-answer-option': selectedOptionIndex === i, 'right-answer': isSubmitted && rightOptionIndex === i, 'wrong-answer': isSubmitted && rightOptionIndex !== i, 'disabled': isSubmitted}"
       class="answer-option">
       <span class="question-letter-holder"></span>
       <span class="question-text">{{option}}</span>
@@ -52,7 +52,7 @@
 
     <button
       (click)="onAnswerSubmit()"
-      [ngClass]="{'disabled': rightOptionIndex >= 0}"
+      [ngClass]="{'disabled': isSubmitted}"
       class="action-button">
       Submit Answer
     </button>

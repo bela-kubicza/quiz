@@ -68,9 +68,10 @@
 }
 
 .decision-icon {
-  background: url("/assets/images/icon-correct.svg") center center no-repeat;
+  background: center center no-repeat;
   display: block;
   height: 40px;
+  visibility: hidden;
   width: 40px;
 }
 
@@ -85,11 +86,20 @@
     justify-content: center;
   }
 
+  &.disabled {
+    pointer-events: none;
+  }
+
   &:hover {
     .question-letter-holder {
       background-color: $purple-transparent;
       color: $purple;
     }
+  }
+
+  &.right-answer .decision-icon {
+    background-image: url("/assets/images/icon-correct.svg");
+    visibility: visible;
   }
 
   &.selected-answer-option {
@@ -105,6 +115,19 @@
 
       .question-letter-holder {
         background-color: $green;
+      }
+    }
+
+    &.wrong-answer {
+      border-color: $red;
+
+      .decision-icon {
+        background-image: url("/assets/images/icon-error.svg");
+        visibility: visible;
+      }
+
+      .question-letter-holder {
+        background-color: $red;
       }
     }
   }
