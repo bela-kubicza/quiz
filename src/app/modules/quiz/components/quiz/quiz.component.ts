@@ -21,7 +21,7 @@ export class QuizComponent {
   public selectedOptionIndex: number = NOT_SELECTED;
   public rightAnswerCount: number = 0;
   public isSubmitted: boolean = false;
-  
+
   public onQuizTopicSelect(index: number): void {
     this.selectedQuizIndex = index;
     this.currentQuestionIndex = 0;
@@ -37,21 +37,25 @@ export class QuizComponent {
   }
 
   public onCTACLick(): void {
-    if (!this.isLastQuestion()) {
-      if (this.isSubmitted) {
-        this.rightOptionIndex = NOT_SELECTED;
-        this.selectedOptionIndex = NOT_SELECTED;
-        this.currentQuestionIndex += 1;
-        this.isSubmitted = false;
-      } else {
-        this.rightOptionIndex = this.getRightOptionIndex();
+    const jumpToNextQuestion = (): void => {
+      this.rightOptionIndex = NOT_SELECTED;
+      this.selectedOptionIndex = NOT_SELECTED;
+      this.currentQuestionIndex += 1;
+      this.isSubmitted = false;
+    }
 
-        if (this.rightOptionIndex === this.selectedOptionIndex) {
-          this.rightAnswerCount += 1;
-        }
+    const evaluateAnswer = (): void => {
+      this.rightOptionIndex = this.getRightOptionIndex();
 
-        this.isSubmitted = true;
+      if (this.rightOptionIndex === this.selectedOptionIndex) {
+        this.rightAnswerCount += 1;
       }
+
+      this.isSubmitted = true;
+    }
+
+    if (!this.isLastQuestion()) {
+      this.isSubmitted ? jumpToNextQuestion() : evaluateAnswer();
     } else {
       this.state = State.QUIZ_RESULT
     }
