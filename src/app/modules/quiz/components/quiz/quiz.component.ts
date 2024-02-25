@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Quiz } from '../../../../core/models/quiz';
 import { NOT_SELECTED, State } from './quiz.constants';
 import { QuizQuestion } from '../../../../core/models/quizQuestion';
@@ -6,13 +6,14 @@ import { QuizQuestion } from '../../../../core/models/quizQuestion';
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  styleUrls: ['./quiz.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuizComponent {
   @Input('quizzes') quizzes: Quiz[] = [];
 
-  public readonly State = State;
-  public readonly NOT_SELECTED = NOT_SELECTED;
+  public readonly State: typeof State = State;
+  public readonly NOT_SELECTED: number = NOT_SELECTED;
 
   public state: State = State.QUIZ_TOPIC_SELECTOR;
   public selectedQuizIndex: number = NOT_SELECTED;
@@ -33,7 +34,7 @@ export class QuizComponent {
   }
 
   public isLastQuestion(): boolean {
-    return this.currentQuestionIndex === this.quizzes[this.selectedQuizIndex].questions.length - 2;
+    return this.currentQuestionIndex === this.quizzes[this.selectedQuizIndex].questions.length - 1;
   }
 
   public onCTACLick(): void {
@@ -54,10 +55,11 @@ export class QuizComponent {
       this.isSubmitted = true;
     }
 
+
     if (!this.isLastQuestion()) {
       this.isSubmitted ? jumpToNextQuestion() : evaluateAnswer();
     } else {
-      this.state = State.QUIZ_RESULT
+      this.isSubmitted ? this.state = State.QUIZ_RESULT : evaluateAnswer();
     }
   }
 
@@ -73,6 +75,7 @@ export class QuizComponent {
     this.currentQuestionIndex = NOT_SELECTED;
     this.rightOptionIndex = NOT_SELECTED;
     this.selectedOptionIndex = NOT_SELECTED;
+    this.isSubmitted = false;
     this.rightAnswerCount = 0;
   }
 }
